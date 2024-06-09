@@ -3,6 +3,9 @@ package blackjackv3;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,7 +19,9 @@ public class AccDetails extends JFrame implements ActionListener {
     String usernane;
     int money;
     DBManager db = new DBManager();
-    JButton backBtn = new JButton("Back");
+    private JButton backBtn;
+    String LoggedName = Login.getLoginName();
+    
 
     AccDetails() {
 
@@ -25,13 +30,27 @@ public class AccDetails extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setSize(300, 150);
 
-        JLabel userName = new JLabel("Name: ");
-        JLabel money = new JLabel("Money: ");
+        Connection conn = db.getConnection();
 
-        JButton backBtn = new JButton("Back");
+        try{
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT money FROM BLACKJACKDB WHERE username = '" + LoggedName + "'");
+            if (rs.next()) {
+                money = rs.getInt("money");
+            }
+            }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+        JLabel userName = new JLabel("Name: " + LoggedName);
+        JLabel Money = new JLabel("Money: " + money);
+
+        backBtn = new JButton("Back");
         backBtn.addActionListener(this);
 
-        this.add(money);
+        this.add(Money);
         this.add(userName);
         this.add(backBtn);
 
@@ -45,9 +64,10 @@ public class AccDetails extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == backBtn) {
             dispose();
-            BlackJack game = new BlackJack();
+            
         }
 
     }
+    
 
 }

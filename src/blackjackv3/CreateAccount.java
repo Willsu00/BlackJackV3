@@ -175,7 +175,7 @@ public class CreateAccount extends JFrame implements ActionListener {
                 try{
                     Statement statement = conn.createStatement();
                     statement.execute("INSERT INTO BLACKJACKDB (USERNAME) VALUES ('" + username + "')");
-                    statement.execute("UPDATE BLACKJACKDB SET MONEY = 100 WHERE USERNAME = '" + username +"'");
+                    statement.execute("UPDATE BLACKJACKDB SET MONEY = 1000 WHERE USERNAME = '" + username +"'");
                 } catch (Exception ex){
                     ex.printStackTrace();
                 }
