@@ -13,7 +13,7 @@ public class Deck {
     int card1;
 
     public Deck() {
-        int[] ranks = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11 };
+        int[] ranks = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10 };
         this.deck = new ArrayList<Card>();
         for (int rank : ranks) {
             deck.add(new Card(rank));
