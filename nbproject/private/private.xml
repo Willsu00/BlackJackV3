@@ -5,10 +5,12 @@
         <group>
             <file>file:/C:/Users/willi/Documents/NetBeansProjects/BlackJackV3/src/blackjackv3/Card.java</file>
             <file>file:/C:/Users/willi/Documents/NetBeansProjects/BlackJackV3/src/blackjackv3/Logic.java</file>
+            <file>file:/C:/Users/willi/Documents/NetBeansProjects/BlackJackV3/src/blackjackv3/AccDetails.java</file>
             <file>file:/C:/Users/willi/Documents/NetBeansProjects/BlackJackV3/src/blackjackv3/Deck.java</file>
             <file>file:/C:/Users/willi/Documents/NetBeansProjects/BlackJackV3/src/blackjackv3/Login.java</file>
             <file>file:/C:/Users/willi/Documents/NetBeansProjects/BlackJackV3/src/blackjackv3/BlackJack.java</file>
             <file>file:/C:/Users/willi/Documents/NetBeansProjects/BlackJackV3/src/blackjackv3/BlackjackWindow.java</file>
+            <file>file:/C:/Users/willi/Documents/NetBeansProjects/BlackJackV3/src/blackjackv3/HandValue.java</file>
             <file>file:/C:/Users/willi/Documents/NetBeansProjects/BlackJackV3/src/blackjackv3/CreateAccount.java</file>
             <file>file:/C:/Users/willi/Documents/NetBeansProjects/BlackJackV3/src/blackjackv3/DBManager.java</file>
         </group>
