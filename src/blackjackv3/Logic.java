@@ -11,6 +11,10 @@ public class Logic extends JFrame {
         if (BlackjackWindow.getHandvalue() > 21) {
             System.out.println("Bust! You lose.");
             JOptionPane.showMessageDialog(null, "Bust! You lose");
+
+            this.dispose();
+
+            BlackJack game = new BlackJack();
         }
         if (BlackjackWindow.getHandvalue() == 21) {
             System.out.println("Blackjack! You win!");
