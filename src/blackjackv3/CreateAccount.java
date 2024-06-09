@@ -4,16 +4,20 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class CreateAccount extends JFrame implements ActionListener {
@@ -76,8 +80,6 @@ public class CreateAccount extends JFrame implements ActionListener {
 
         setVisible(true);
 
-
-
     }
 
     @Override
@@ -87,7 +89,50 @@ public class CreateAccount extends JFrame implements ActionListener {
         String username = UserText.getText();
         String password = PassText.getText();
 
+        // check if fields are empty
+
+        if (name.equals("") || username.equals("") || password.equals("")) {
+            JOptionPane.showMessageDialog(this, "Please fill out all fields");
+            return;
+        }
+
+        File dir = new File("./Logins/");
+        File[] files = dir.listFiles(new FilenameFilter() {
+        @Override
+        public boolean accept(File dir, String name) {
+            // Only accept files that end with .txt
+            return name.endsWith(".txt");
+            }
+        });
+
+        boolean accountExists = false;
+
+        for (File file : files) {
+            try {
+                // Create a BufferedReader to read the file
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+
+                // Read the username, name, and password from the file
+                String fileUsername = reader.readLine();
+                String fileName = reader.readLine();
+                String filePassword = reader.readLine();
+
+                // Close the BufferedReader
+                reader.close();
+
+                // If the entered username, name, and password match the ones in the file,
+                // set the accountExists flag to true and break out of the loop
+                if (username.equals(fileUsername) && name.equals(fileName) && password.equals(filePassword)) {
+                    accountExists = true;
+                    break;
+                }
+            } catch (IOException ex) {
+                // If there was an error reading the file, print an error message
+                System.out.println("Error: Login not matching");
+            }
+        }
         
+
         try {
             // Create a new file in the Logins folder
             File file = new File("./Logins/" + username + ".txt");
@@ -103,9 +148,40 @@ public class CreateAccount extends JFrame implements ActionListener {
             System.out.println("Error Writing");
         }
         
+        if (accountExists) {
+            JOptionPane.showMessageDialog(this, "Account Already Exists");
+            System.out.println("Account Already Exists");
+        } else {
+            try {
+                // If the account doesn't exist, create a new file for the account
+                File file = new File("./Logins/" + username + ".txt");
+    
+                // If the Logins directory does not exist, it will be created
+                file.getParentFile().mkdirs();
+    
+                // Create a PrintWriter to write to the file
+                PrintWriter writer = new PrintWriter(file);
+    
+                // Write the entered username, name, and password to the file
+                writer.println(username);
+                writer.println(name);
+                writer.println(password);
+    
+                // Close the PrintWriter
+                writer.close();
 
-        this.dispose();
-        new Login();
+                this.dispose();
+                new Login();
+    
+            } catch (FileNotFoundException ex) {
+                // If the file could not be created for some reason, print an error message
+                System.out.println("Error Writing");
+
+
+            }
+        }
+
+
 
         // TODO Auto-generated method stub
         //throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
