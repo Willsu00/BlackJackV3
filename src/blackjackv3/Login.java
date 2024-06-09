@@ -74,9 +74,11 @@ public class Login extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == ConBtn) {
+
             this.dispose();
             BlackJack game = new BlackJack();
             System.out.println("Sign In Button Clicked");
+
         } else if (ae.getSource() == CreatBtn) {
             this.dispose();
             CreateAccount account = new CreateAccount();

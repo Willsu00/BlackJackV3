@@ -4,6 +4,12 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,6 +18,15 @@ import javax.swing.JTextField;
 
 public class CreateAccount extends JFrame implements ActionListener {
 
+
+    String name;
+    String username;
+    String password;
+    JTextField UserText;
+    JTextField NameText;
+    JTextField PassText;
+    String file_directory = "./logins/";
+
     CreateAccount() {
 
         this.setTitle("Create Account");
@@ -19,9 +34,9 @@ public class CreateAccount extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setSize(300, 150);
 
-        JTextField UserText = new JTextField("", 10);
-        JTextField NameText = new JTextField("", 10);
-        JTextField PassText = new JTextField("", 10);
+        UserText = new JTextField("", 10);
+        NameText = new JTextField("", 10);
+        PassText = new JTextField("", 10);
         JLabel UserLabel = new JLabel("Username: ");
         JLabel NameLabel = new JLabel("Name: ");
         JLabel PassLabel = new JLabel("Password: ");
@@ -61,15 +76,39 @@ public class CreateAccount extends JFrame implements ActionListener {
 
         setVisible(true);
 
+
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        String name = NameText.getText();
+        String username = UserText.getText();
+        String password = PassText.getText();
+
+        
+        try {
+            // Create a new file in the Logins folder
+            File file = new File("./Logins/" + username + ".txt");
+            file.getParentFile().mkdirs(); // Will create Logins directory if it doesn't exist
+
+            PrintWriter writer = new PrintWriter(file);
+            writer.println(username);
+            writer.println(name);
+            writer.println(password);
+            writer.close();
+
+        } catch (FileNotFoundException ex) {
+            System.out.println("Error Writing");
+        }
+        
+
         this.dispose();
         new Login();
 
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        //throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
+
 }

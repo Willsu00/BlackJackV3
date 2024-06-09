@@ -2,6 +2,7 @@ package blackjackv3;
 
 public class Card {
     private int rank;
+    
 
     public Card(int rank) {
         this.rank = rank;
