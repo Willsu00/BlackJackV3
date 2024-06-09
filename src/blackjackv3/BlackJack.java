@@ -18,9 +18,9 @@ public class BlackJack {
         
         new Login();
         
+
         DBManager dbmanager = new DBManager();
         dbmanager.getConnection();
-        
         
 
     }
