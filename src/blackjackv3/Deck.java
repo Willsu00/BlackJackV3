@@ -29,15 +29,12 @@ public class Deck {
             deck.set(i, randomCard);
             deck.set(ran, currentCard);
 
-            System.out.println(i);
-            System.out.println(ran);
-
         }
     }
 
     public void printDeck() {
         for (Card card : deck) {
-            System.out.println(card.getValue());
+            // System.out.println(card.getValue());
         }
     }
 

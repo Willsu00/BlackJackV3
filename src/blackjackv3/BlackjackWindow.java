@@ -25,6 +25,8 @@ public class BlackjackWindow extends JFrame implements ActionListener {
     private JPanel textAreaPanel;
     private JTextArea textArea1;
     private JPanel buttonPanel;
+    int totalValue;
+    static int handvalue;
 
     Card card;
     Card card1;
@@ -78,11 +80,15 @@ public class BlackjackWindow extends JFrame implements ActionListener {
 
         this.add(buttonPanel, BorderLayout.SOUTH); // add the buttonPanel to the SOUTH region
 
+        System.out.println(card.getValue() + card1.getValue());
+        handvalue = card.getValue() + card1.getValue();
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == HitBtn) {
+
             // Create a new card
             if (e.getSource() == HitBtn) {
                 i++;
@@ -90,6 +96,7 @@ public class BlackjackWindow extends JFrame implements ActionListener {
                 Deck deck = new Deck();
                 deck.shuffleDeck();
                 Card newCard = deck.getCard(i);
+                handvalue += newCard.getValue();
 
                 // Create a new JTextArea to display the new card
                 JTextArea newCardTextArea = new JTextArea();
@@ -137,8 +144,16 @@ public class BlackjackWindow extends JFrame implements ActionListener {
                 }
 
                 this.setVisible(true);
+                Logic logic = new Logic();
+
+                // System.out.println(handvalue);
             }
 
         }
     }
+
+    public static int getHandvalue() {
+        return handvalue;
+    }
+
 }
