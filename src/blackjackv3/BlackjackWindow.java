@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JLabel;
 //import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -27,6 +29,7 @@ public class BlackjackWindow extends JFrame implements ActionListener {
     private JPanel buttonPanel;
     int totalValue;
     static int handvalue;
+    private JLabel handValueLabel = new JLabel("Total: " + handvalue);
 
     Card card;
     Card card1;
@@ -78,12 +81,15 @@ public class BlackjackWindow extends JFrame implements ActionListener {
         textArea1.setFont(new Font("Serif", Font.PLAIN, 20)); // font name, style, size
         textAreaPanel.add(textArea1); // add the JTextArea to the new panel
 
+        this.add(handValueLabel, BorderLayout.NORTH);
+
         this.add(textAreaPanel, BorderLayout.CENTER); // add the new panel to the NORTH region
 
         this.add(buttonPanel, BorderLayout.SOUTH); // add the buttonPanel to the SOUTH region
 
         System.out.println(card.getValue() + card1.getValue());
         handvalue = card.getValue() + card1.getValue();
+        handValueLabel.setText("Total: " + handvalue);
 
     }
 
@@ -91,9 +97,10 @@ public class BlackjackWindow extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == HitBtn) {
 
+            int i = 0;
+
             // Create a new card
             if (e.getSource() == HitBtn) {
-                i++;
                 // Create a new card
                 Deck deck = new Deck();
                 deck.shuffleDeck();
@@ -110,19 +117,19 @@ public class BlackjackWindow extends JFrame implements ActionListener {
                 }
 
                 if (card == null) {
-                    card = deck.getCard(i++);
+                    card = deck.getCard(i);
                     JTextArea cardTextArea = new JTextArea();
                     cardTextArea.setText(card.toString());
                     cardTextArea.setFont(new Font("Serif", Font.PLAIN, 20));
                     textAreaPanel.add(cardTextArea);
                 } else if (card1 == null) {
-                    card1 = deck.getCard(i++);
+                    card1 = deck.getCard(i);
                     JTextArea card1TextArea = new JTextArea();
                     card1TextArea.setText(card1.toString());
                     card1TextArea.setFont(new Font("Serif", Font.PLAIN, 20));
                     textAreaPanel.add(card1TextArea);
                 } else {
-                    newCard = deck.getCard(i++);
+                    newCard = deck.getCard(i);
                     if (newCard != null) {
                         newCardTextArea = new JTextArea();
                         newCardTextArea.setText(newCard.toString());
@@ -147,6 +154,7 @@ public class BlackjackWindow extends JFrame implements ActionListener {
 
                 this.setVisible(true);
                 Logic logic = new Logic();
+                handValueLabel.setText("Total: " + handvalue);
 
                 // System.out.println(handvalue);
             }

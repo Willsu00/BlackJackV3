@@ -8,6 +8,8 @@ public class HandValue {
     public HandValue(List<Card> deck) {
         value = 0;
         for (Card card : deck) {
+            // code inside the loop
+        }
             value += card.getValue();
         }
     }
@@ -15,5 +17,4 @@ public class HandValue {
     public static int getValue() {
         return value;
     }
-
 }
