@@ -19,6 +19,7 @@ public class BlackjackWindow extends JFrame implements ActionListener {
     JButton HitBtn = new JButton("Hit");
     JButton StandBtn = new JButton("Reset");
     JButton QuitBtn = new JButton("Quit");
+    JButton AccountBtn = new JButton("Account");
 
     private JPanel textAreaPanel;
     private JPanel buttonPanel;
@@ -96,6 +97,8 @@ public class BlackjackWindow extends JFrame implements ActionListener {
         System.out.println(card.getValue() + card1.getValue());
         handvalue = card.getValue() + card1.getValue();
         handValueLabel.setText("Total: " + handvalue);
+
+        buttonPanel.add(AccountBtn);
 
     }
 

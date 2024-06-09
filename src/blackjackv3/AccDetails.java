@@ -12,7 +12,6 @@ import javax.swing.JTextField;
 
 public class AccDetails extends JFrame implements ActionListener {
     
-    String name;
     String usernane;
     int money;
     DBManager db = new DBManager();
@@ -24,7 +23,6 @@ public class AccDetails extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setSize(300, 150);
 
-        JLabel Name = new JLabel("Username:");
         JLabel userName = new JLabel("Name: ");
         JLabel money = new JLabel("Money: ");
 

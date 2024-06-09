@@ -10,7 +10,6 @@ import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javax.swing.JButton;
@@ -27,7 +26,9 @@ public class Login extends JFrame implements ActionListener {
     JPanel panel = new JPanel();
     JTextField UserText, NameText, PassText;
     JLabel UserLabel, NameLabel, PassLabel;
-    String name;
+    static String name;
+    int money;
+    DBManager db = new DBManager();
 
     Login() {
 
@@ -85,12 +86,16 @@ public class Login extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == ConBtn) {
 
+
             // start of login check
 
             boolean idCheck = false;
-            String enteredUser = UserText.getText();
+            name = UserText.getText();
             String enteredPass = PassText.getText();
             // String enteredName = NameText.getText();
+
+            setLoginName(name);
+
 
             File dir = new File("./Logins/"); // specify your directory if not current
             File[] files = dir.listFiles(new FilenameFilter() {
@@ -108,7 +113,7 @@ public class Login extends JFrame implements ActionListener {
                     String filePassword = reader.readLine();
                     reader.close();
 
-                    if (enteredUser.equals(fileUsername)
+                    if (name.equals(fileUsername)
                             /* && enteredName.equals(fileName) */ && enteredPass.equals(filePassword)) {
                         idCheck = true;
                         break;
@@ -120,16 +125,20 @@ public class Login extends JFrame implements ActionListener {
 
             if (idCheck) {
 
-                setLoginName(enteredUser);
+                
 
                 this.dispose();
                 BlackJack game = new BlackJack();
                 System.out.println("Sign In Button Clicked");
+                System.out.println(name);
+                setLoginName(name);
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid Username or Password");
                 System.out.println("Login Failed");
             }
             // end of login check
+
+            setLoginName(name);
            
 
         } else if (ae.getSource() == CreatBtn) {
@@ -140,14 +149,17 @@ public class Login extends JFrame implements ActionListener {
         }
     }
 
-    public String getLoginName(){
-        
-        return name;
-    }
 
     public String setLoginName(String name){
         name = UserText.getText();
         return name;
     }
+
+    public static String getLoginName(){
+        
+        return name;
+    }
+    
+
 
 }
