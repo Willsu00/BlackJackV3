@@ -15,10 +15,15 @@ import javax.swing.JTextArea;
 
 public class BlackjackWindow extends JFrame implements ActionListener {
 
+    private int i = 0;
+
     JButton HitBtn = new JButton("Hit");
     JButton StandBtn = new JButton("Stand");
     JButton QuitBtn = new JButton("Quit");
-    JPanel textAreaPanel;
+
+    private JPanel textAreaPanel;
+    private JTextArea textArea1;
+    private JPanel buttonPanel;
 
     BlackjackWindow() {
 
@@ -69,24 +74,44 @@ public class BlackjackWindow extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == HitBtn) {
             // Create a new card
-            Deck deck = new Deck();
-            Card newCard = deck.getCard(3); // Replace 'deck.drawCard()' with the method you use to draw a new card
+            if (ae.getSource() == HitBtn) {
+                i++;
+                // Create a new card
+                Deck deck = new Deck();
+                Card newCard = deck.getCard(i); // Replace 'deck.drawCard()' with the method you use to draw a new card
 
-            // Create a new JTextArea to display the new card
-            JTextArea newCardTextArea = new JTextArea();
-            newCardTextArea.setText(newCard.toString());
-            newCardTextArea.setFont(new Font("Serif", Font.PLAIN, 20)); // font name, style, size
-            textAreaPanel.add(newCardTextArea); // add the JTextArea to the panel
+                // Create a new JTextArea to display the new card
+                JTextArea newCardTextArea = new JTextArea();
+                newCardTextArea.setText(newCard.toString());
+                newCardTextArea.setFont(new Font("Serif", Font.PLAIN, 20)); // font name, style, size
 
-            // Refresh the panel
-            textAreaPanel.revalidate();
-            textAreaPanel.repaint();
+                // Initialize textAreaPanel if it's null
+                if (textAreaPanel == null) {
+                    textAreaPanel = new JPanel();
+                    this.add(textAreaPanel, BorderLayout.CENTER); // add the textAreaPanel to the CENTER region
+                }
 
-        } else if (ae.getSource() == StandBtn) {
+                // Add the new JTextArea to the panel
+                textAreaPanel.add(newCardTextArea);
 
-        } else if (ae.getSource() == QuitBtn) {
-            System.exit(0); // close the application
+                // Refresh the panel
+                textAreaPanel.revalidate();
+                textAreaPanel.repaint();
 
+                // Initialize buttonPanel if it's null
+                if (buttonPanel == null) {
+                    buttonPanel = new JPanel();
+                    // Add buttons to buttonPanel here
+                    this.add(buttonPanel, BorderLayout.SOUTH); // add the buttonPanel to the SOUTH region
+                }
+
+                this.setVisible(true);
+            } else if (ae.getSource() == StandBtn) {
+
+            } else if (ae.getSource() == QuitBtn) {
+                System.exit(0); // close the application
+
+            }
         }
     }
 
