@@ -7,11 +7,12 @@ public class HandValue {
 
     public HandValue(List<Card> deck) {
         value = 0;
+        Card card; // Declare the 'card' variable here
         for (Card card : deck) {
-            // code inside the loop
-        }
+
             value += card.getValue();
         }
+
     }
 
     public static int getValue() {
