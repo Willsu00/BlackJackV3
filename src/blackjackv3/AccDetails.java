@@ -16,7 +16,7 @@ public class AccDetails extends JFrame implements ActionListener {
     String usernane;
     int money;
     DBManager db = new DBManager();
-    private JButton backBtn;
+    JButton backBtn = new JButton("Back");
 
     AccDetails() {
 
@@ -28,7 +28,7 @@ public class AccDetails extends JFrame implements ActionListener {
         JLabel userName = new JLabel("Name: ");
         JLabel money = new JLabel("Money: ");
 
-        backBtn = new JButton("Back");
+        JButton backBtn = new JButton("Back");
         backBtn.addActionListener(this);
 
         this.add(money);
@@ -45,6 +45,7 @@ public class AccDetails extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == backBtn) {
             dispose();
+            BlackJack game = new BlackJack();
         }
 
     }
