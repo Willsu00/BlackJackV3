@@ -3,6 +3,7 @@ package blackjackv3;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 //import java.util.Scanner;
@@ -25,6 +26,9 @@ public class BlackjackWindow extends JFrame implements ActionListener {
     private JTextArea textArea1;
     private JPanel buttonPanel;
 
+    Card card;
+    Card card1;
+
     BlackjackWindow() {
 
         this.setTitle("BlackJack");
@@ -33,14 +37,20 @@ public class BlackjackWindow extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setVisible(true);
 
-        JPanel buttonPanel = new JPanel(); // create a new panel
+        buttonPanel = new JPanel(); // create a new panel
 
         buttonPanel.add(HitBtn); // add buttons to the panel
         HitBtn.addActionListener(this);
         buttonPanel.add(StandBtn);
         StandBtn.addActionListener(this);
         buttonPanel.add(QuitBtn);
-        QuitBtn.addActionListener(this);
+        QuitBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+
+        });
 
         this.add(buttonPanel, BorderLayout.SOUTH); // add the panel to the SOUTH region
 
@@ -50,7 +60,7 @@ public class BlackjackWindow extends JFrame implements ActionListener {
         Card card = deck.getCard(0);
         Card card1 = deck.getCard(1);
 
-        JPanel textAreaPanel = new JPanel((new FlowLayout())); // create a new panel for the JTextAreas
+        textAreaPanel = new JPanel((new GridLayout(1, 0))); // create a new panel for the JTextAreas
 
         JTextArea textArea = new JTextArea();
         textArea.setText(card.toString());
@@ -71,28 +81,49 @@ public class BlackjackWindow extends JFrame implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == HitBtn) {
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == HitBtn) {
             // Create a new card
-            if (ae.getSource() == HitBtn) {
+            if (e.getSource() == HitBtn) {
                 i++;
                 // Create a new card
                 Deck deck = new Deck();
-                Card newCard = deck.getCard(i); // Replace 'deck.drawCard()' with the method you use to draw a new card
+                deck.shuffleDeck();
+                Card newCard = deck.getCard(i);
 
                 // Create a new JTextArea to display the new card
                 JTextArea newCardTextArea = new JTextArea();
                 newCardTextArea.setText(newCard.toString());
                 newCardTextArea.setFont(new Font("Serif", Font.PLAIN, 20)); // font name, style, size
 
-                // Initialize textAreaPanel if it's null
                 if (textAreaPanel == null) {
                     textAreaPanel = new JPanel();
-                    this.add(textAreaPanel, BorderLayout.CENTER); // add the textAreaPanel to the CENTER region
                 }
 
-                // Add the new JTextArea to the panel
-                textAreaPanel.add(newCardTextArea);
+                if (card == null) {
+                    card = deck.getCard(i++);
+                    JTextArea cardTextArea = new JTextArea();
+                    cardTextArea.setText(card.toString());
+                    cardTextArea.setFont(new Font("Serif", Font.PLAIN, 20));
+                    textAreaPanel.add(cardTextArea);
+                } else if (card1 == null) {
+                    card1 = deck.getCard(i++);
+                    JTextArea card1TextArea = new JTextArea();
+                    card1TextArea.setText(card1.toString());
+                    card1TextArea.setFont(new Font("Serif", Font.PLAIN, 20));
+                    textAreaPanel.add(card1TextArea);
+                } else {
+                    newCard = deck.getCard(i++);
+                    if (newCard != null) {
+                        newCardTextArea = new JTextArea();
+                        newCardTextArea.setText(newCard.toString());
+                        newCardTextArea.setFont(new Font("Serif", Font.PLAIN, 20));
+                        textAreaPanel.add(newCardTextArea);
+                    }
+                }
+
+                // // Add the new JTextArea to the panel
+                // textAreaPanel.add(newCardTextArea);
 
                 // Refresh the panel
                 textAreaPanel.revalidate();
@@ -106,13 +137,8 @@ public class BlackjackWindow extends JFrame implements ActionListener {
                 }
 
                 this.setVisible(true);
-            } else if (ae.getSource() == StandBtn) {
-
-            } else if (ae.getSource() == QuitBtn) {
-                System.exit(0); // close the application
-
             }
+
         }
     }
-
 }

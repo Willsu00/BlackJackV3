@@ -14,7 +14,7 @@ public class Deck {
 
     public Deck() {
         int[] ranks = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11 };
-        deck = new ArrayList<Card>();
+        this.deck = new ArrayList<Card>();
         for (int rank : ranks) {
             deck.add(new Card(rank));
         }

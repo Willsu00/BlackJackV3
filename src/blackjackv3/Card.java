@@ -22,13 +22,11 @@ public class Card {
 
     @Override
     public String toString() {
-        String formattedRank = String.format("%2s", rank);
+        String formattedRank = rank > 9 ? "10" : String.format("%2s", rank);
         return " _______ " + System.lineSeparator() +
-                "|" + formattedRank + "      |" + System.lineSeparator() +
-                "|       |" + System.lineSeparator() +
-                "|       |" + System.lineSeparator() +
-                "|       |" + System.lineSeparator() +
-                "|_____" + formattedRank + "|" + System.lineSeparator();
+                "|" + formattedRank + "           |" + System.lineSeparator() +
+                "|              |" + System.lineSeparator() +
+                "|           " + formattedRank + "|" + System.lineSeparator() +
+                "|_______|";
     }
-
 }
