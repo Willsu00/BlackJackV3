@@ -5,14 +5,14 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.Statement;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -29,6 +29,7 @@ public class CreateAccount extends JFrame implements ActionListener {
     JTextField NameText;
     JTextField PassText;
     String file_directory = "./logins/";
+    DBManager db = new DBManager();
 
     CreateAccount() {
 
@@ -181,6 +182,16 @@ public class CreateAccount extends JFrame implements ActionListener {
 
                 // Close the PrintWriter
                 writer.close();
+
+                Connection conn = db.getConnection();
+
+                try{
+                    Statement statement = conn.createStatement();
+                    statement.execute("INSERT INTO BLACKJACKDB (USERNAME) VALUES ('" + username + "')");
+                    statement.execute("UPDATE BLACKJACKDB SET MONEY = 100 WHERE USERNAME = '" + username +"'");
+                } catch (Exception ex){
+                    ex.printStackTrace();
+                }
 
                 this.dispose();
                 new Login();

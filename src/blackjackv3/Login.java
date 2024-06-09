@@ -9,6 +9,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -123,10 +126,7 @@ public class Login extends JFrame implements ActionListener {
                 System.out.println("Login Failed");
             }
             // end of login check
-
-            // this.dispose();
-            // BlackJack game = new BlackJack();
-            // System.out.println("Sign In Button Clicked");
+           
 
         } else if (ae.getSource() == CreatBtn) {
             this.dispose();
