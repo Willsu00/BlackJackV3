@@ -1,7 +1,6 @@
 package blackjackv3;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -9,7 +8,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -19,11 +17,10 @@ public class BlackjackWindow extends JFrame implements ActionListener {
     private int i = 0;
 
     JButton HitBtn = new JButton("Hit");
-    JButton StandBtn = new JButton("Stand");
+    JButton StandBtn = new JButton("Reset");
     JButton QuitBtn = new JButton("Quit");
 
     private JPanel textAreaPanel;
-    private JTextArea textArea1;
     private JPanel buttonPanel;
     int totalValue;
     static int handvalue;
@@ -46,6 +43,17 @@ public class BlackjackWindow extends JFrame implements ActionListener {
         HitBtn.addActionListener(this);
         buttonPanel.add(StandBtn);
         StandBtn.addActionListener(this);
+        StandBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                dispose();
+
+                BlackJack game = new BlackJack();
+
+            }
+
+        });
         buttonPanel.add(QuitBtn);
         QuitBtn.addActionListener(new ActionListener() {
             @Override
@@ -69,7 +77,7 @@ public class BlackjackWindow extends JFrame implements ActionListener {
 
         JTextArea textArea = new JTextArea();
         textArea.setText(card.toString());
-        textArea.setBounds(50, -1000, 200, 200); // x, y, width, height
+        textArea.setBounds(50, 400, 200, 200); // x, y, width, height
         textArea.setFont(new Font("Serif", Font.PLAIN, 20)); // font name, style, size
         textAreaPanel.add(textArea); // add the JTextArea to the new panel
 
@@ -108,7 +116,7 @@ public class BlackjackWindow extends JFrame implements ActionListener {
                 // Create a new JTextArea to display the new card
                 JTextArea newCardTextArea = new JTextArea();
                 newCardTextArea.setText(newCard.toString());
-                newCardTextArea.setFont(new Font("Serif", Font.PLAIN, 20)); // font name, style, size
+                newCardTextArea.setFont(new Font("Serif", Font.PLAIN, 30)); // font name, style, size
 
                 if (textAreaPanel == null) {
                     textAreaPanel = new JPanel();
@@ -118,13 +126,13 @@ public class BlackjackWindow extends JFrame implements ActionListener {
                     card = deck.getCard(i);
                     JTextArea cardTextArea = new JTextArea();
                     cardTextArea.setText(card.toString());
-                    cardTextArea.setFont(new Font("Serif", Font.PLAIN, 20));
+                    cardTextArea.setFont(new Font("Serif", Font.PLAIN, 30));
                     textAreaPanel.add(cardTextArea);
                 } else if (card1 == null) {
                     card1 = deck.getCard(i);
                     JTextArea card1TextArea = new JTextArea();
                     card1TextArea.setText(card1.toString());
-                    card1TextArea.setFont(new Font("Serif", Font.PLAIN, 20));
+                    card1TextArea.setFont(new Font("Serif", Font.PLAIN, 30));
                     textAreaPanel.add(card1TextArea);
                 } else {
                     newCard = deck.getCard(i);
@@ -135,9 +143,6 @@ public class BlackjackWindow extends JFrame implements ActionListener {
                         textAreaPanel.add(newCardTextArea);
                     }
                 }
-
-                // // Add the new JTextArea to the panel
-                // textAreaPanel.add(newCardTextArea);
 
                 // Refresh the panel
                 textAreaPanel.revalidate();
@@ -156,6 +161,26 @@ public class BlackjackWindow extends JFrame implements ActionListener {
 
                 // System.out.println(handvalue);
             }
+
+        }
+
+        if (handvalue > 21)
+
+        {
+
+            dispose();
+
+            BlackJack game = new BlackJack();
+
+        }
+
+        if (handvalue == 21)
+
+        {
+
+            dispose();
+
+            BlackJack game = new BlackJack();
 
         }
     }
