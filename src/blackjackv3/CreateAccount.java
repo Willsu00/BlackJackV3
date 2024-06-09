@@ -22,7 +22,6 @@ import javax.swing.JTextField;
 
 public class CreateAccount extends JFrame implements ActionListener {
 
-
     String name;
     String username;
     String password;
@@ -45,6 +44,7 @@ public class CreateAccount extends JFrame implements ActionListener {
         JLabel NameLabel = new JLabel("Name: ");
         JLabel PassLabel = new JLabel("Password: ");
         JButton CreateBtn = new JButton("Create Account");
+        JButton BackBtn = new JButton("Back");
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -78,6 +78,19 @@ public class CreateAccount extends JFrame implements ActionListener {
         this.add(CreateBtn, constraints);
         CreateBtn.addActionListener(this);
 
+        constraints.gridx = 0;
+        constraints.gridy = 4;
+        constraints.gridwidth = 2; // span across two columns
+        constraints.anchor = GridBagConstraints.CENTER; // position the button in the center
+        this.add(BackBtn, constraints);
+        BackBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new Login();
+            }
+        });
+
         setVisible(true);
 
     }
@@ -91,17 +104,17 @@ public class CreateAccount extends JFrame implements ActionListener {
 
         // check if fields are empty
 
-        if (name.equals("") || username.equals("") || password.equals("")) {
-            JOptionPane.showMessageDialog(this, "Please fill out all fields");
-            return;
-        }
+        // if (name.equals("") || username.equals("") || password.equals("")) {
+        // JOptionPane.showMessageDialog(this, "Please fill out all fields");
+        // return;
+        // }
 
         File dir = new File("./Logins/");
         File[] files = dir.listFiles(new FilenameFilter() {
-        @Override
-        public boolean accept(File dir, String name) {
-            // Only accept files that end with .txt
-            return name.endsWith(".txt");
+            @Override
+            public boolean accept(File dir, String name) {
+                // Only accept files that end with .txt
+                return name.endsWith(".txt");
             }
         });
 
@@ -131,7 +144,6 @@ public class CreateAccount extends JFrame implements ActionListener {
                 System.out.println("Error: Login not matching");
             }
         }
-        
 
         try {
             // Create a new file in the Logins folder
@@ -147,7 +159,7 @@ public class CreateAccount extends JFrame implements ActionListener {
         } catch (FileNotFoundException ex) {
             System.out.println("Error Writing");
         }
-        
+
         if (accountExists) {
             JOptionPane.showMessageDialog(this, "Account Already Exists");
             System.out.println("Account Already Exists");
@@ -155,36 +167,34 @@ public class CreateAccount extends JFrame implements ActionListener {
             try {
                 // If the account doesn't exist, create a new file for the account
                 File file = new File("./Logins/" + username + ".txt");
-    
+
                 // If the Logins directory does not exist, it will be created
                 file.getParentFile().mkdirs();
-    
+
                 // Create a PrintWriter to write to the file
                 PrintWriter writer = new PrintWriter(file);
-    
+
                 // Write the entered username, name, and password to the file
                 writer.println(username);
                 writer.println(name);
                 writer.println(password);
-    
+
                 // Close the PrintWriter
                 writer.close();
 
                 this.dispose();
                 new Login();
-    
+
             } catch (FileNotFoundException ex) {
                 // If the file could not be created for some reason, print an error message
                 System.out.println("Error Writing");
 
-
             }
         }
 
-
-
         // TODO Auto-generated method stub
-        //throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        // throw new UnsupportedOperationException("Unimplemented method
+        // 'actionPerformed'");
     }
 
 }
