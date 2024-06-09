@@ -49,6 +49,8 @@ public class BlackjackWindow extends JFrame implements ActionListener {
         QuitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                DBManager dbManager = new DBManager();
+                dbManager.closeConnections();
                 System.exit(0);
             }
 
