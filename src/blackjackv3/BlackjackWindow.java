@@ -99,6 +99,15 @@ public class BlackjackWindow extends JFrame implements ActionListener {
         handValueLabel.setText("Total: " + handvalue);
 
         buttonPanel.add(AccountBtn);
+        AccountBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                AccDetails accDetails = new AccDetails();
+
+            }
+
+        });
 
     }
 

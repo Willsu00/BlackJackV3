@@ -1,5 +1,6 @@
 package blackjackv3;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,13 +12,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class AccDetails extends JFrame implements ActionListener {
-    
+
     String usernane;
     int money;
     DBManager db = new DBManager();
+    JButton backBtn = new JButton("Back");
 
-    AccDetails(){
-        
+    AccDetails() {
+
         this.setTitle("Account Details");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -26,11 +28,26 @@ public class AccDetails extends JFrame implements ActionListener {
         JLabel userName = new JLabel("Name: ");
         JLabel money = new JLabel("Money: ");
 
+        JButton backBtn = new JButton("Back");
+        backBtn.addActionListener(this);
+
+        this.add(money);
+        this.add(userName);
+        this.add(backBtn);
+
+        this.setLayout(new GridLayout(3, 1));
+
+        this.setVisible(true);
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        if (e.getSource() == backBtn) {
+            dispose();
+            BlackJack game = new BlackJack();
+        }
+
     }
+
 }
