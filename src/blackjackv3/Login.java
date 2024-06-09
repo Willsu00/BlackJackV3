@@ -27,6 +27,7 @@ public class Login extends JFrame implements ActionListener {
     JPanel panel = new JPanel();
     JTextField UserText, NameText, PassText;
     JLabel UserLabel, NameLabel, PassLabel;
+    String name;
 
     Login() {
 
@@ -118,6 +119,9 @@ public class Login extends JFrame implements ActionListener {
             }
 
             if (idCheck) {
+
+                setLoginName(enteredUser);
+
                 this.dispose();
                 BlackJack game = new BlackJack();
                 System.out.println("Sign In Button Clicked");
@@ -134,6 +138,16 @@ public class Login extends JFrame implements ActionListener {
             account.setVisible(true);
             System.out.println("Create Account Button Clicked");
         }
+    }
+
+    public String getLoginName(){
+        
+        return name;
+    }
+
+    public String setLoginName(String name){
+        name = UserText.getText();
+        return name;
     }
 
 }

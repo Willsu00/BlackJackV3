@@ -95,10 +95,10 @@ public class CreateAccount extends JFrame implements ActionListener {
 
         // check if fields are empty
 
-        // if (name.equals("") || username.equals("") || password.equals("")) {
-        // JOptionPane.showMessageDialog(this, "Please fill out all fields");
-        // return;
-        // }
+        if (username.equals("") || password.equals("")) {
+            JOptionPane.showMessageDialog(this, "Please fill out all fields");
+            return;
+        }
 
         File dir = new File("./Logins/");
         File[] files = dir.listFiles(new FilenameFilter() {
@@ -118,7 +118,6 @@ public class CreateAccount extends JFrame implements ActionListener {
 
                 // Read the username, name, and password from the file
                 String fileUsername = reader.readLine();
-                String fileName = reader.readLine();
                 String filePassword = reader.readLine();
 
                 // Close the BufferedReader
