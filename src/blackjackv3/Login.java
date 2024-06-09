@@ -4,6 +4,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FilenameFilter;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -75,9 +80,55 @@ public class Login extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == ConBtn) {
 
-            this.dispose();
-            BlackJack game = new BlackJack();
-            System.out.println("Sign In Button Clicked");
+            //start of login check
+
+            boolean idCheck = false;
+            String enteredUser = UserText.getText();
+            String enteredPass = PassText.getText();
+            String enteredName = NameText.getText();
+
+            File dir = new File("./Logins/"); // specify your directory if not current
+            File[] files = dir.listFiles(new FilenameFilter() {
+                @Override
+                public boolean accept(File dir, String name) {
+                    return name.endsWith(".txt");
+                }
+            });
+
+            for (File file : files) {
+                try {
+                    BufferedReader reader = new BufferedReader(new FileReader(file));
+                    String fileUsername = reader.readLine();
+                    String fileName = reader.readLine();
+                    String filePassword = reader.readLine();
+                    reader.close();
+
+                    if (enteredUser.equals(fileUsername) && enteredName.equals(fileName) && enteredPass.equals(filePassword)) {
+                        idCheck = true;
+                        break;
+                    }
+                } catch (IOException ex) {
+                    System.out.println("Error: Login not matching");
+                }
+            }
+
+            
+            if (idCheck) {
+                this.dispose();
+                BlackJack game = new BlackJack();
+                System.out.println("Sign In Button Clicked");
+            }
+            else{
+                System.out.println("Login Failed");
+            }
+            // end of login check
+
+
+            // this.dispose();
+            // BlackJack game = new BlackJack();
+            // System.out.println("Sign In Button Clicked");
+
+            
 
         } else if (ae.getSource() == CreatBtn) {
             this.dispose();
