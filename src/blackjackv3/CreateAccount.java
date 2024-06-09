@@ -22,11 +22,9 @@ import javax.swing.JTextField;
 
 public class CreateAccount extends JFrame implements ActionListener {
 
-    String name;
     String username;
     String password;
     JTextField UserText;
-    JTextField NameText;
     JTextField PassText;
     String file_directory = "./logins/";
 
@@ -37,14 +35,14 @@ public class CreateAccount extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setSize(300, 150);
 
-        UserText = new JTextField("", 10);
-        NameText = new JTextField("", 10);
-        PassText = new JTextField("", 10);
         JLabel UserLabel = new JLabel("Username: ");
-        JLabel NameLabel = new JLabel("Name: ");
+        UserText = new JTextField("", 10);
         JLabel PassLabel = new JLabel("Password: ");
+        PassText = new JTextField("", 10);
         JButton CreateBtn = new JButton("Create Account");
         JButton BackBtn = new JButton("Back");
+
+        System.out.println(PassText);
 
         this.setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -56,13 +54,6 @@ public class CreateAccount extends JFrame implements ActionListener {
 
         constraints.gridx = 1;
         this.add(UserText, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 1;
-        this.add(NameLabel, constraints);
-
-        constraints.gridx = 1;
-        this.add(NameText, constraints);
 
         constraints.gridx = 0;
         constraints.gridy = 2;
@@ -98,7 +89,6 @@ public class CreateAccount extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        String name = NameText.getText();
         String username = UserText.getText();
         String password = PassText.getText();
 
@@ -135,7 +125,7 @@ public class CreateAccount extends JFrame implements ActionListener {
 
                 // If the entered username, name, and password match the ones in the file,
                 // set the accountExists flag to true and break out of the loop
-                if (username.equals(fileUsername) && name.equals(fileName) && password.equals(filePassword)) {
+                if (username.equals(fileUsername) && password.equals(filePassword)) {
                     accountExists = true;
                     break;
                 }
@@ -152,7 +142,6 @@ public class CreateAccount extends JFrame implements ActionListener {
 
             PrintWriter writer = new PrintWriter(file);
             writer.println(username);
-            writer.println(name);
             writer.println(password);
             writer.close();
 
@@ -176,7 +165,6 @@ public class CreateAccount extends JFrame implements ActionListener {
 
                 // Write the entered username, name, and password to the file
                 writer.println(username);
-                writer.println(name);
                 writer.println(password);
 
                 // Close the PrintWriter
